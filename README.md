@@ -1,0 +1,830 @@
+[el_lapiz_feliz_menu_papeleria.ipynb](https://github.com/user-attachments/files/31624015/el_lapiz_feliz_menu_papeleria.ipynb)
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "SMvy4B5YPNgJ"
+      },
+      "source": [
+        "# El Lápiz Feliz — el menú interactivo\n",
+        "### Clase de ciclos: `while`, `for` y el menú del sistema de facturación\n",
+        "\n",
+        "**Cómo usar este notebook:**\n",
+        "1. En cada paso hay una celda de código para que el profesor y ustedes lo vayan escribiendo juntos en clase.\n",
+        "2. Debajo hay una celda de markdown con **\"Ver respuesta\"** — no la abran antes de intentarlo. Es para confirmar después de escribir el código, no para copiar y pegar antes.\n",
+        "3. Al final del notebook están las instrucciones para subirlo a GitHub y entregar el enlace.\n",
+        "\n",
+        "Practicamos cuatro cosas distintas con las opciones del menú:\n",
+        "\n",
+        "1. **Registrar una factura** — usa el `for` (repetición *conocida*: el cajero dice cuántos productos hay; como no hemos visto listas, `for` recorre un `range()`, no una colección)\n",
+        "2. **Ver total acumulado del día** — un acumulador que **suma**\n",
+        "3. **Ver cuántas facturas se han registrado** — un acumulador que **cuenta**\n",
+        "4. **Salir** — usa `break` para terminar el `while`"
+      ],
+      "id": "SMvy4B5YPNgJ"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "GMCJCwSjPNgT"
+      },
+      "source": [
+        "## Paso 1 — el truco del separador\n",
+        "\n",
+        "Escribe una línea que imprima 40 guiones seguidos, multiplicando el texto `\"-\"` por un número."
+      ],
+      "id": "GMCJCwSjPNgT"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "uj0GHQUhPNgV",
+        "outputId": "9963295b-ec62-4419-f43f-5259bae641ff"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "________________________________________\n"
+          ]
+        }
+      ],
+      "source": [
+        "# ✏️escribe aquí tu código\n",
+        "print(\"_\"*40)"
+      ],
+      "id": "uj0GHQUhPNgV"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "6kWlb47HPNgX"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "print(\"-\" * 40)\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "6kWlb47HPNgX"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "6ZT3YIjKPNgZ"
+      },
+      "source": [
+        "## Paso 2 — el menú, solo con `print`\n",
+        "\n",
+        "Dibuja el menú completo (todavía sin lógica): título, las 4 opciones, y una línea separadora arriba y abajo."
+      ],
+      "id": "6ZT3YIjKPNgZ"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "51EYeZcuPNga",
+        "outputId": "06bd5526-1040-473b-bd54-18b785d125e8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"-\" * 40)\n",
+        "print(\"EL LÁPIZ FELIZ\")\n",
+        "print(\"-\" * 40)\n",
+        "print(\"1. Registrar una factura\")\n",
+        "print(\"2. Ver total acumulado del día\")\n",
+        "print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "print(\"4. Salir\")\n",
+        "print(\"-\" * 40)\n"
+      ],
+      "id": "51EYeZcuPNga"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Kmt02VfBPNgb"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "print(\"-\" * 40)\n",
+        "print(\"EL LÁPIZ FELIZ\")\n",
+        "print(\"-\" * 40)\n",
+        "print(\"1. Registrar una factura\")\n",
+        "print(\"2. Ver total acumulado del día\")\n",
+        "print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "print(\"4. Salir\")\n",
+        "print(\"-\" * 40)\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "Kmt02VfBPNgb"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-A6lXavGPNgd"
+      },
+      "source": [
+        "## Paso 3 — leer la opción con `input`\n",
+        "\n",
+        "Pide al usuario que escriba una opción, guárdala en una variable llamada `opcion`, e imprímela."
+      ],
+      "id": "-A6lXavGPNgd"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "v9VPukKtPNge",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "739030c2-9e94-47f1-dfe3-abdccb020ceb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Elige una opción: 1\n",
+            "Elegiste la opción: 1\n"
+          ]
+        }
+      ],
+      "source": [
+        "opcion = input(\"Elige una opción: \")\n",
+        "print(\"Elegiste la opción:\", opcion)\n"
+      ],
+      "id": "v9VPukKtPNge"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "eHRJyaIePNgf"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "opcion = input(\"Elige una opción: \")\n",
+        "print(\"Elegiste la opción:\", opcion)\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "eHRJyaIePNgf"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-_D2bQmrPNgg"
+      },
+      "source": [
+        "## Paso 4 — el `while` que mantiene vivo el menú\n",
+        "\n",
+        "Mete el menú y el `input` del paso 3 dentro de un `while True`. Todavía sin lógica de verdad en las opciones 1, 2 y 3 — solo un `print` que diga \"(aquí va a ir...)\". La opción `4` sí debe terminar el ciclo de verdad, con `break`."
+      ],
+      "id": "-_D2bQmrPNgg"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "xwJkmUzyPNgh",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "2e7d2673-06a7-4a17-b58f-8d8d9707ad76"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 2\n",
+            "aqui va ir el total del día\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 1\n",
+            "aqui va ir registrar la factura\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n"
+          ]
+        }
+      ],
+      "source": [
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "    if opcion == \"1\":\n",
+        "        print(\"aqui va ir registrar la factura\")\n",
+        "    elif opcion == \"2\":\n",
+        "        print(\"aqui va ir el total del día\")\n",
+        "    elif opcion == \"3\":\n",
+        "        print(\"aqui va ir el número de facturas\")\n",
+        "\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "id": "xwJkmUzyPNgh"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "SJrwAQP9PNgi"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "\n",
+        "    if opcion == \"1\":\n",
+        "        print(\"(aquí va a ir registrar la factura)\")\n",
+        "    elif opcion == \"2\":\n",
+        "        print(\"(aquí va a ir el total del día)\")\n",
+        "    elif opcion == \"3\":\n",
+        "        print(\"(aquí va a ir el número de facturas)\")\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "SJrwAQP9PNgi"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "MJlNjpeNPNgj"
+      },
+      "source": [
+        "## Paso 5 — los acumuladores del día\n",
+        "\n",
+        "Crea dos variables que empiecen en 0: `total_dia` (va a **sumar**) y `facturas_hechas` (va a **contar**). Imprímelas para confirmar."
+      ],
+      "id": "MJlNjpeNPNgj"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "nkrJKz00PNgk",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "490ce378-68fd-4679-a720-638a8abee03a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "total_dia: 0\n",
+            "facturas_hechas: 0\n"
+          ]
+        }
+      ],
+      "source": [
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "print(\"total_dia:\", total_dia)\n",
+        "print(\"facturas_hechas:\", facturas_hechas)\n",
+        "\n"
+      ],
+      "id": "nkrJKz00PNgk"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "whYkFM5OPNgk"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "print(\"total_dia:\", total_dia)\n",
+        "print(\"facturas_hechas:\", facturas_hechas)\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "whYkFM5OPNgk"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "_qJpkSewPNgl"
+      },
+      "source": [
+        "## Paso 6 — opción 1: registrar una factura con `for`\n",
+        "\n",
+        "Completa la opción `1` del menú. Necesitas, en este orden:\n",
+        "\n",
+        "1. Preguntar cuántos productos tiene la factura (`cantidad`, convertida a entero con `int()`)\n",
+        "2. Crear `total_factura` empezando en 0\n",
+        "3. Un `for i in range(cantidad):` que en cada vuelta pida nombre y precio, y sume el precio a `total_factura`\n",
+        "4. Imprimir el total de la factura\n",
+        "5. Sumar `total_factura` a `total_dia`\n",
+        "6. Sumar 1 a `facturas_hechas`\n",
+        "\n",
+        "Recuerda poner `total_dia = 0` y `facturas_hechas = 0` **antes** del `while` (paso 5), no adentro de la opción 1."
+      ],
+      "id": "_qJpkSewPNgl"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "id": "hRck0ij7PNgl",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "80e87927-c45e-41d9-80dc-f4545c21e645"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 1\n",
+            "¿cuantos productos tiene esta factura?4\n",
+            "Producto 1 de 4:\n",
+            "  Nombre del producto: USB\n",
+            "  Precio: 32000\n",
+            "Producto 2 de 4:\n",
+            "  Nombre del producto: Resma\n",
+            "  Precio: 15000\n",
+            "Producto 3 de 4:\n",
+            "  Nombre del producto: Cuadernos\n",
+            "  Precio: 7500\n",
+            "Producto 4 de 4:\n",
+            "  Nombre del producto: Carpetas\n",
+            "  Precio: 5600\n",
+            "Factura registrada. Total: $60,100\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 2\n",
+            "(aquí va a ir el total del día)\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 3\n",
+            "(aquí va a ir el número de facturas)\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 4\n",
+            "¡Gracias por usar el sistema! Hasta pronto.\n"
+          ]
+        }
+      ],
+      "source": [
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "\n",
+        "    if opcion == \"1\":\n",
+        "        cantidad = int(input(\"¿cuantos productos tiene esta factura?\"))\n",
+        "\n",
+        "        total_factura = 0\n",
+        "\n",
+        "        for i in range(cantidad):\n",
+        "            print(f\"Producto {i+1} de {cantidad}:\")\n",
+        "            nombre = input(\"  Nombre del producto: \")\n",
+        "            precio = float(input(\"  Precio: \"))\n",
+        "            total_factura = total_factura + precio\n",
+        "\n",
+        "        print(f\"Factura registrada. Total: ${total_factura:,.0f}\")\n",
+        "        total_dia = total_dia + total_factura\n",
+        "        facturas_hechas = facturas_hechas + 1\n",
+        "\n",
+        "\n",
+        "    elif opcion == \"2\":\n",
+        "        print(\"(aquí va a ir el total del día)\")\n",
+        "    elif opcion == \"3\":\n",
+        "        print(\"(aquí va a ir el número de facturas)\")\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n"
+      ],
+      "id": "hRck0ij7PNgl"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ZVXaJ9NRPNgm"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "\n",
+        "    if opcion == \"1\":\n",
+        "        cantidad = int(input(\"¿Cuántos productos tiene esta factura? \"))\n",
+        "        total_factura = 0\n",
+        "\n",
+        "        for i in range(cantidad):\n",
+        "            print(f\"Producto {i + 1} de {cantidad}:\")\n",
+        "            nombre = input(\"  Nombre del producto: \")\n",
+        "            precio = float(input(\"  Precio: \"))\n",
+        "            total_factura = total_factura + precio\n",
+        "\n",
+        "        print(f\"Factura registrada. Total: ${total_factura:,.0f}\")\n",
+        "        total_dia = total_dia + total_factura\n",
+        "        facturas_hechas = facturas_hechas + 1\n",
+        "    elif opcion == \"2\":\n",
+        "        print(\"(aquí va a ir el total del día)\")\n",
+        "    elif opcion == \"3\":\n",
+        "        print(\"(aquí va a ir el número de facturas)\")\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "ZVXaJ9NRPNgm"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "t9nZ4lt8PNgn"
+      },
+      "source": [
+        "## Paso 7 — opciones 2 y 3: mostrar lo acumulado\n",
+        "\n",
+        "Completa las opciones `2` y `3`, mostrando `total_dia` y `facturas_hechas`. Esta es la versión final y completa del menú."
+      ],
+      "id": "t9nZ4lt8PNgn"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "id": "G-iPHYNVPNgn",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "e6c372fe-3659-427f-a0bc-944135cf5ee7"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 1\n",
+            "¿Cuántos productos tiene esta factura? 6\n",
+            "Producto 1 de 6:\n",
+            "  Nombre del producto: Lapiceros\n",
+            "  Precio: 6500\n",
+            "Producto 2 de 6:\n",
+            "  Nombre del producto: Carpetas\n",
+            "  Precio: 5600\n",
+            "Producto 3 de 6:\n",
+            "  Nombre del producto: Cuadernos Argollados\n",
+            "  Precio: 11800\n",
+            "Producto 4 de 6:\n",
+            "  Nombre del producto: Resmas\n",
+            "  Precio: 15000\n",
+            "Producto 5 de 6:\n",
+            "  Nombre del producto: USB\n",
+            "  Precio: 32000\n",
+            "Producto 6 de 6:\n",
+            "  Nombre del producto: Block\n",
+            "  Precio: 6500\n",
+            "Factura registrada. Total: $77,400\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 2\n",
+            "Total acumulado del día: $77,400\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 3\n",
+            "Facturas registradas hoy: 1\n",
+            "----------------------------------------\n",
+            "EL LÁPIZ FELIZ\n",
+            "----------------------------------------\n",
+            "1. Registrar una factura\n",
+            "2. Ver total acumulado del día\n",
+            "3. Ver cuántas facturas se han registrado\n",
+            "4. Salir\n",
+            "----------------------------------------\n",
+            "Elige una opción: 4\n",
+            "¡Gracias por usar el sistema! Hasta pronto.\n"
+          ]
+        }
+      ],
+      "source": [
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "\n",
+        "    if opcion == \"1\":\n",
+        "        cantidad = int(input(\"¿Cuántos productos tiene esta factura? \"))\n",
+        "        total_factura = 0\n",
+        "\n",
+        "        for i in range(cantidad):\n",
+        "            print(f\"Producto {i + 1} de {cantidad}:\")\n",
+        "            nombre = input(\"  Nombre del producto: \")\n",
+        "            precio = float(input(\"  Precio: \"))\n",
+        "            total_factura = total_factura + precio\n",
+        "\n",
+        "        print(f\"Factura registrada. Total: ${total_factura:,.0f}\")\n",
+        "        total_dia = total_dia + total_factura\n",
+        "        facturas_hechas = facturas_hechas + 1\n",
+        "    elif opcion == \"2\":\n",
+        "        print(f\"Total acumulado del día: ${total_dia:,.0f}\")\n",
+        "\n",
+        "    elif opcion == \"3\":\n",
+        "        print(f\"Facturas registradas hoy: {facturas_hechas}\")\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n"
+      ],
+      "id": "G-iPHYNVPNgn"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "w0mJ_FeJPNgo"
+      },
+      "source": [
+        "<details>\n",
+        "<summary>Ver respuesta ✅</summary>\n",
+        "\n",
+        "```python\n",
+        "total_dia = 0\n",
+        "facturas_hechas = 0\n",
+        "\n",
+        "while True:\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"EL LÁPIZ FELIZ\")\n",
+        "    print(\"-\" * 40)\n",
+        "    print(\"1. Registrar una factura\")\n",
+        "    print(\"2. Ver total acumulado del día\")\n",
+        "    print(\"3. Ver cuántas facturas se han registrado\")\n",
+        "    print(\"4. Salir\")\n",
+        "    print(\"-\" * 40)\n",
+        "\n",
+        "    opcion = input(\"Elige una opción: \")\n",
+        "\n",
+        "    if opcion == \"1\":\n",
+        "        cantidad = int(input(\"¿Cuántos productos tiene esta factura? \"))\n",
+        "        total_factura = 0\n",
+        "\n",
+        "        for i in range(cantidad):\n",
+        "            print(f\"Producto {i + 1} de {cantidad}:\")\n",
+        "            nombre = input(\"  Nombre del producto: \")\n",
+        "            precio = float(input(\"  Precio: \"))\n",
+        "            total_factura = total_factura + precio\n",
+        "\n",
+        "        print(f\"Factura registrada. Total: ${total_factura:,.0f}\")\n",
+        "        total_dia = total_dia + total_factura\n",
+        "        facturas_hechas = facturas_hechas + 1\n",
+        "    elif opcion == \"2\":\n",
+        "        print(f\"Total acumulado del día: ${total_dia:,.0f}\")\n",
+        "    elif opcion == \"3\":\n",
+        "        print(f\"Facturas registradas hoy: {facturas_hechas}\")\n",
+        "    elif opcion == \"4\":\n",
+        "        print(\"¡Gracias por usar el sistema! Hasta pronto.\")\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción no válida, intenta de nuevo.\")\n",
+        "```\n",
+        "\n",
+        "</details>"
+      ],
+      "id": "w0mJ_FeJPNgo"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KRxNWllbPNgp"
+      },
+      "source": [
+        "## Para practicar\n",
+        "\n",
+        "- ¿Qué pasa si mueven `total_factura = 0` para que quede *antes* del `while`, en vez de adentro de la opción 1? Pruébenlo y observen qué le pasa al total cuando hacen dos facturas seguidas.\n",
+        "- ¿Por qué `total_dia` y `facturas_hechas` sí necesitan estar antes del `while`, pero `total_factura` no?\n",
+        "- **Reto 1:** agreguen una opción `5. Reiniciar el total del día`, que ponga `total_dia = 0` (útil para empezar un día nuevo).\n",
+        "- **Reto 2:** ¿qué pasaría si el cajero escribe una letra donde se espera un precio? Corran el programa y prueben — lo vamos a arreglar cuando veamos manejo de errores.\n",
+        "- Cuando veamos listas, ¿qué le agregarían a la opción 1 para poder ver el detalle completo de una factura anterior, y no solo el total?"
+      ],
+      "id": "KRxNWllbPNgp"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "frHAFv7APNgp"
+      },
+      "source": [
+        "## Entrega: sube tu notebook a GitHub\n",
+        "\n",
+        "1. **Guarda el notebook** con tu código completo (`Archivo → Guardar` o `Ctrl+S` / `Cmd+S`). Si estás en Google Colab: `Archivo → Descargar → Descargar .ipynb`.\n",
+        "2. Entra a [github.com](https://github.com) e inicia sesión (si no tienes cuenta, créala primero — es gratis).\n",
+        "3. En tu perfil, haz clic en **\"New\"** (o el botón `+` arriba a la derecha → **\"New repository\"**).\n",
+        "4. Ponle un nombre al repositorio, por ejemplo `el-lapiz-feliz-menu`, márcalo como **Public**, y crea el repositorio (no hace falta marcar nada más).\n",
+        "5. Dentro del repositorio recién creado, haz clic en **\"Add file\" → \"Upload files\"**.\n",
+        "6. Arrastra tu archivo `.ipynb` a la ventana, y confirma con **\"Commit changes\"**.\n",
+        "7. Una vez subido, haz clic sobre el archivo para abrirlo — GitHub lo muestra ya renderizado, con las celdas de \"Ver respuesta\" incluidas.\n",
+        "8. Copia el enlace de esa página (la URL de arriba) y compártelo como tu entrega.\n",
+        "\n",
+        "**No necesitas usar git ni la terminal para esto** — todo se hace desde la página web de GitHub."
+      ],
+      "id": "frHAFv7APNgp"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.11"
+    },
+    "colab": {
+      "provenance": []
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
